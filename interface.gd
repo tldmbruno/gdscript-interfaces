@@ -56,9 +56,12 @@ func _get_all_descendants(node:Node) -> Array:
 
 
 func _ready():
-	var all_the_darn_nodes = _get_all_descendants(get_tree().current_scene)
+	if not OS.is_debug_mode():
+		return
+
+	var all_the_nodes = _get_all_descendants(get_tree().current_scene)
 	
-	for node in all_the_darn_nodes:
+	for node in all_the_nodes:
 		_check_node(node)
 	
 	get_tree().node_added.connect(_check_node)
